@@ -7,7 +7,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   stats: { children: true },//развернута информация об ошибках
-  entry: { main: './src/components/index.js' },// Указываем путь до входной точки:
+  entry: { main: './src/pages/index.js' },// Указываем путь до входной точки:
   output: {// Описываем, куда следует поместить результат работы:
     path: path.resolve(__dirname, 'dist'),// Путь до директории (важно использовать path.resolve):
     filename: 'main.js',// Имя файла со сборкой:
@@ -15,7 +15,7 @@ module.exports = {
   },
   mode: 'development',
   devServer: {
-    static: path.resolve(__dirname, './dist'),
+    static: path.resolve(__dirname, './src'),
     open: true,
     compress: true,
     port: 8080
@@ -43,12 +43,15 @@ module.exports = {
     {
       // Это правило будет применяться ко всем файлам,
       // имя которых подойдет под регулярное выражение:
-      test: /\.css$/,
-      use: [MiniCssExtractPlugin.loader, { // Список лоадеров, которые применятся к файлу:
-        loader: 'css-loader',
-        options: { importLoaders: 1 }// Лоадеру можно передать параметры:
-      },
-        'postcss-loader']
+      test: /\.css$/,// Список лоадеров, которые применятся к файлу:
+      use: [
+        MiniCssExtractPlugin.loader,
+        {
+          loader: 'css-loader',
+          options: { importLoaders: 1 }// Лоадеру можно передать параметры:
+        },
+        'postcss-loader'
+      ]
     }
     ]
   },
